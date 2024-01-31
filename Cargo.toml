@@ -34,6 +34,7 @@ rf-core = "0.5.1"
 rf-distributed = "0.5.1"
 rf-distributed-esp = { git = "https://github.com/lm98/rf-distributed-esp", branch = "master"}
 rufi_gradient = "2.0.10"
+serde_json = "1.0.111"
 
 [build-dependencies]
 embuild = "0.31.3"
