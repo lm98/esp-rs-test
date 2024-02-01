@@ -20,7 +20,7 @@ impl<'a> EspMqttNetwork<'a> {
             move |message_event| match message_event {
                 Ok(Event::Received(msg)) => {
                     let update = EspMqttNetwork::process_message(msg);
-                    tx.send(NetworkUpdate::Update { msg: update }).unwrap();
+                    tx.send(update).unwrap();
                 },
                 _ => { 
                     tx.send(NetworkUpdate::None).unwrap();
@@ -42,8 +42,8 @@ impl<'a> EspMqttNetwork<'a> {
         Ok(())
     }
 
-    fn process_message(message: &EspMqttMessage) -> String {
-        /*match message.details() {
+    fn process_message(message: &EspMqttMessage) -> NetworkUpdate {
+        match message.details() {
             Complete => {
                 let message_data: &[u8] = message.data();
                 if let Ok(mex) = serde_json::from_slice::<Message>(message_data) {
@@ -53,8 +53,7 @@ impl<'a> EspMqttNetwork<'a> {
                 }
             },
             _ => NetworkUpdate::None,
-        }*/
-        serde_json::to_string(&message).unwrap()
+        }
     }
 }
 
